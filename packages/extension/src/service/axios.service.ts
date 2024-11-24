@@ -11,9 +11,9 @@ import axios, {
 export class AxiosService
   implements Pick<AxiosInstance, 'get' | 'post' | 'put' | 'delete' | 'patch'>
 {
-  private axiosInstance: AxiosInstance
-  private createAxiosDefaults: CreateAxiosDefaults = {}
-  private requestInterceptor = {
+  private readonly axiosInstance: AxiosInstance
+  private readonly createAxiosDefaults: CreateAxiosDefaults = {}
+  private readonly requestInterceptor = {
     onFulfilled: (config: InternalAxiosRequestConfig) => {
       return config
     },
@@ -21,7 +21,7 @@ export class AxiosService
       return Promise.reject(error)
     }
   }
-  private responseInterceptor = {
+  private readonly responseInterceptor = {
     onFulfilled: (config: AxiosResponse) => {
       return config
     },

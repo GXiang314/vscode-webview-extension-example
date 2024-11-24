@@ -1,0 +1,18 @@
+#!/bin/sh
+
+changed_files=$(git diff --cached --name-only)
+
+# 檢查是否有更改的文件在 packages/extension/ 目錄中
+if echo "$changed_files" | grep -q "^packages/extension/"; then
+    pnpm lint:extension
+fi
+
+# 檢查是否有更改的文件在 packages/view-sidebar/ 目錄中
+if echo "$changed_files" | grep -q "^packages/view-sidebar/"; then
+    pnpm lint:view-sidebar
+fi
+
+# 檢查是否有更改的文件在 packages/view-panel/ 目錄中
+if echo "$changed_files" | grep -q "^packages/view-panel/"; then
+    pnpm lint:view-panel
+fi
