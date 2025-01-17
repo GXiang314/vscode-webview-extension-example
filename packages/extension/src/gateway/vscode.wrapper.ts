@@ -5,6 +5,8 @@ import * as path from 'path'
 @service()
 export class VSCodeWindowWrapper {
     context!: vscode.ExtensionContext
+    static panels: { [key: string]: vscode.WebviewPanel } = {}
+
     constructor() {
         this.initialize()
     }
@@ -32,12 +34,23 @@ export class VSCodeWindowWrapper {
     public getResourcesPath() {
         return this.context.asAbsolutePath(path.join('assets/resources'))
     }
-}
 
-@service()
-export class VSCodeWorkspaceWrapper {
-    public getWorkspaceFolders(): readonly vscode.WorkspaceFolder[] | undefined {
-        return vscode.workspace.workspaceFolders
+    public static createWebviewPanel(
+        viewType: string,
+        title: string,
+        viewColumn: vscode.ViewColumn,
+        options?: vscode.WebviewPanelOptions & vscode.WebviewOptions
+    ): vscode.WebviewPanel {
+        this.disposeWebviewPanel(viewType)
+        const panel = vscode.window.createWebviewPanel(viewType, title, viewColumn, options)
+        this.panels[viewType] = panel
+        return panel
+    }
+
+    public static disposeWebviewPanel(viewType: string) {
+        if (this.panels[viewType]) {
+            this.panels[viewType].dispose()
+        }
     }
 
     public async openTextDocument(filePath: string): Promise<void> {
@@ -48,4 +61,12 @@ export class VSCodeWorkspaceWrapper {
             preview: false,
         })
     }
+}
+
+@service()
+export class VSCodeWorkspaceWrapper {
+    public getWorkspaceFolders(): readonly vscode.WorkspaceFolder[] | undefined {
+        return vscode.workspace.workspaceFolders
+    }
+
 }
