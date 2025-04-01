@@ -3,6 +3,7 @@ import { readFileSync } from 'fs'
 import { join } from 'path'
 import { modifyHtml } from 'html-modifier'
 import { CallHandler, CecServer, SubscribleHandler } from 'cec-client-server'
+import { getNonce } from '../utils/get-nonce'
 
 export type ViewProviderOptions = {
     distDir: string
@@ -55,21 +56,28 @@ export abstract class AbstractViewProvider {
     protected async getWebviewHtml(webview: Webview) {
         const { distDir, indexPath } = this.viewProviderOptions
         // 前端應用的打包結果所在的目錄，形如：https://file%2B.vscode-resource.vscode-cdn.net/d%3A/AAAAA/self/vscode-webview-example/packages/extension/out/view-sidebar
-        const webviewUri = webview.asWebviewUri(Uri.joinPath(this.context.extensionUri, distDir)).toString()
+        // const webviewUri = webview.asWebviewUri(Uri.joinPath(this.context.extensionUri, distDir)).toString()
+        const webviewUri = webview.asWebviewUri(Uri.file(join(this.context.extensionPath, distDir))).toString()
         // 需要在前端應用中插入的變數，目的是：將上述 webviewUri 所指的目錄告知前端應用，前端應用在定位資源時需要
         const injectInContent = `<script> window.${AbstractViewProvider.WEBVIEW_INJECT_IN_MARK} = "${webviewUri}"</script>`
 
         const htmlPath = join(this.context.extensionPath, indexPath)
+
+        const nonce = getNonce()
         // 讀取 index.html 文件內容
         const htmlText = readFileSync(htmlPath).toString()
         // 使用 html-modifier 套件來處理讀取的內容，主要的作用是：1、將 script、link 標籤中的 src、href 的值，重新賦予正確的值，2、將上述 injectInContent 的內容插入讀取的內容中
         return await modifyHtml(htmlText, {
             onopentag(name, attribs) {
-                if (name === 'script') {
-                    attribs.src = join(webviewUri, attribs.src)
+                if (name === 'script' && attribs.src) {
+                    // attribs.src = join(webviewUri, attribs.src)
+                    attribs.src = `${webviewUri}${attribs.src}`
+                    attribs.nonce = nonce
                 }
-                if (name === 'link') {
-                    attribs.href = join(webviewUri, attribs.href)
+                if (name === 'link' && attribs.href) {
+                    // attribs.href = join(webviewUri, attribs.href)
+                    attribs.href = `${webviewUri}${attribs.href}`
+                    attribs.nonce = nonce
                 }
                 return { name, attribs }
             },

@@ -1,6 +1,6 @@
 import * as vscode from 'vscode'
 import { callable, controller } from 'cec-client-server/decorator'
-import { Deferred } from '../util/deferred'
+import { Deferred } from '../utils/deferred'
 
 @controller('Command')
 export class CommandControler {

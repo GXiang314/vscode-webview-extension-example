@@ -1,6 +1,6 @@
 import { CecClient, type MsgObserver, type MsgReceiver, type MsgSender } from 'cec-client-server'
 
-const vscodeApi = (window as any).acquireVsCodeApi()
+const vscodeApi = (window as any)?.acquireVsCodeApi()
 
 const msgSender: MsgSender = vscodeApi.postMessage.bind(vscodeApi)
 const msgReceiver: MsgReceiver = (msgHandler) => {

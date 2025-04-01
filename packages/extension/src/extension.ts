@@ -19,7 +19,9 @@ export function activate(context: ExtensionContext) {
     // 為指令 panel-view-container.show 註冊行為
     const panelViewDisposable = commands.registerCommand('panel-view-container.show', () => {
         const viewProviderPanel = new ViewProviderPanel(context, { callables, subscribables })
-        const panel = VSCodeWindowWrapper.createWebviewPanel('panel-view-container', 'Panel View', ViewColumn.One, {})
+        const panel = VSCodeWindowWrapper.createWebviewPanel('panel-view-container', 'Panel View', ViewColumn.One, {
+            retainContextWhenHidden: true,
+        })
         viewProviderPanel.resolveWebviewView(panel)
     })
 
