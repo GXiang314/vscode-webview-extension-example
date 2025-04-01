@@ -3,7 +3,7 @@ import { callable, controller } from 'cec-client-server/decorator'
 import { AxiosService } from '../service/axios.service'
 
 @controller('Axios')
-export class AxiosControler {
+export class AxiosController {
     constructor(private readonly axiosService: AxiosService) {}
 
     @callable()
