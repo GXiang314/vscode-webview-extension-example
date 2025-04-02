@@ -69,6 +69,6 @@ Development:
 - Press F5 to open a new window with your extension loaded.
 - After opening Debug window, click on the icon in the activity bar: ![gift](./packages/extension/assets/icon01.svg)
 
-## 動畫演示
+## Demo
 
-![preview](./documents/assets/demo.gif)
+![demo](./documents/assets/demo.gif)
