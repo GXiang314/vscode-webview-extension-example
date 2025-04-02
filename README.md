@@ -6,16 +6,15 @@
 
 原作者地址：
 
-https://github.com/liutaigang/vscode-webview-extension-example
+<https://github.com/liutaigang/vscode-webview-extension-example>
 
-
-# 簡介
+## 簡介
 
 Vscode extension 的 webview 開發模板，整合 Husky, Vue3 + vite, TailwindCSS 框架，開發 Webview view & Web Panel
 
 ## 專案結構
 
-```
+```tree
 └── vscode-webview-extension-template/
     ├── husky/                     # git hook
     ├── packages/
@@ -49,23 +48,27 @@ Vscode extension 的 webview 開發模板，整合 Husky, Vue3 + vite, TailwindC
     └── package.json           # root package 指令/共用套件資訊
 ```
 
-# Quick Start
+## Quick Start
 
-使用 vscode 打開專案，執行：
+Open this project on vscode, run:
 
-（如果沒有安裝 pnpm）
+if pnpm not installed:
 
 ```bash
 npm i pnpm -g
 ```
 
+if not installed packages:
+
 ```bash
 pnpm install --frozen-lockfile
-pnpm dev
 ```
 
-執行完成後：
+Development:
 
-- 按 F5 開啟偵錯模式
-- Debug 視窗開啟後，點選 activitybar 上的圖示： ![](./packages/extension/assets/icon01.svg)
-- 按下 `ctrl+shift+p` 在指令框中輸入：panel-view-container.show
+- Press F5 to open a new window with your extension loaded.
+- After opening Debug window, click on the icon in the activity bar: ![gift](./packages/extension/assets/icon01.svg)
+
+## 動畫演示
+
+![preview](./documents/assets/demo.gif)

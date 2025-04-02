@@ -2,26 +2,25 @@
   "name": "vscode-webview-extension-template",
   "version": "0.0.2",
   "description": "vscode-webview-extension-template",
-  "main": "index.js",
   "scripts": {
     "prepare": "husky",
     "dev": "run-p dev:*",
-    "dev:extension": "pnpm run -F extension watch",
-    "dev:view-sidebar": "pnpm run -F view-sidebar dev",
-    "dev:view-panel": "pnpm run -F view-panel dev",
+    "dev:extension": "pnpm -F extension watch",
+    "dev:view-sidebar": "pnpm -F view-sidebar dev",
+    "dev:view-panel": "pnpm -F view-panel dev",
     "clear": "run-s clear:* && rm -rf ./node_modules",
-    "clear:extension": "pnpm run -F extension clear",
-    "clear:view-sidebar": "pnpm run -F view-sidebar clear",
-    "clear:view-panel": "pnpm run -F view-panel clear",
+    "clear:extension": "pnpm -F extension clear",
+    "clear:view-sidebar": "pnpm -F view-sidebar clear",
+    "clear:view-panel": "pnpm -F view-panel clear",
     "build": "run-s build:*",
-    "build:view-sidebar": "pnpm run -F view-sidebar build",
-    "build:view-panel": "pnpm run -F view-panel build",
-    "build:extension": "pnpm run -F extension build",
+    "build:view-sidebar": "pnpm -F view-sidebar build",
+    "build:view-panel": "pnpm -F view-panel build",
+    "build:extension": "pnpm -F extension build",
     "lint": "run-s lint:*",
-    "lint:extension": "pnpm -F extension run lint-staged",
-    "lint:view-sidebar": "pnpm -F view-sidebar run lint-staged",
-    "lint:view-panel": "pnpm -F view-panel run lint-staged",
-    "package": "pnpm run -F extension package"
+    "lint:extension": "pnpm -F extension lint-staged",
+    "lint:view-sidebar": "pnpm -F view-sidebar lint-staged",
+    "lint:view-panel": "pnpm -F view-panel lint-staged",
+    "package": "pnpm -F extension package"
   },
   "keywords": [],
   "author": "",
@@ -36,6 +35,5 @@
     "husky": "^9.1.7",
     "npm-run-all": "^4.1.5",
     "rimraf": "^5.0.5"
-  },
-  "packageManager": "pnpm@9.15.4+sha512.b2dc20e2fc72b3e18848459b37359a32064663e5627a51e4c74b2c29dd8e8e0491483c3abb40789cfd578bf362fb6ba8261b05f0387d76792ed6e23ea3b1b6a0"
+  }
 }
